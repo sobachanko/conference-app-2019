@@ -82,6 +82,12 @@ allprojects {
         }
     }
 
+    task downloadAllDependencies() {
+        description 'Download all dependencies for the CI Gradle Cache'
+        doLast {
+            configurations.findAll { it.canBeResolved }.files
+        }
+    }
 }
 
 task clean(type: Delete) {
