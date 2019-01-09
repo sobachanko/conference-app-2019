@@ -68,6 +68,13 @@ allprojects {
                     main = "com.github.shyiko.ktlint.Main"
                     args "--android", '-F', 'src/main/**/*.kt', 'src/debug/**/*.kt', 'src/release/**/*.kt'
                 }
+
+                task downloadAllDependencies(dependsOn: 'androidDependencies') {
+                    description 'Download extra dependencies for the CI Gradle Cache'
+                    doLast {
+                        configurations.findAll { it.name.matches(/(ktlint|kapt)/) && it.canBeResolved }.files
+                    }
+                }
             }
         }
     }
@@ -79,13 +86,6 @@ allprojects {
                     details.useVersion '1.0.0-beta02'
                 }
             }
-        }
-    }
-
-    task downloadAllDependencies() {
-        description 'Download all dependencies for the CI Gradle Cache'
-        doLast {
-            configurations.findAll { it.canBeResolved }.files
         }
     }
 }

@@ -62,7 +62,6 @@ jobs:
             - ~/.android
             - ~/.gradle
             - .gradle
-            - ~/.m2
           key: *primary_key_of_gradle_cache
       - run:
           name: Assemble apk
